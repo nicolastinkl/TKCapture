@@ -1,0 +1,65 @@
+//
+//  ViewController.m
+//  TKCapture
+//
+//  Created by tinkl on 28/11/14.
+//  Copyright (c) 2014年 ___TINKL___. All rights reserved.
+//
+
+#import "ViewController.h"
+#import "TKNavigationController.h"
+
+@interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet UIButton *TKBtn_Camera;
+
+@property (weak, nonatomic) IBOutlet UIButton *TKBtn_Album;
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Do any additional setup after loading the view, typically from a nib.
+}
+
+/*!
+ *  @author tinkl, 14-11-29 16:11:32
+ *
+ *  拍照
+ *
+ *  @since 1.0.1
+ */
+-(IBAction)TKTakePhotoAction:(id)sender
+{
+    [[[TKNavigationController alloc] init] showController:self];
+}
+
+/*!
+ *  @author tinkl, 14-11-29 16:11:35
+ *
+ *  查看相册
+ *
+ *  @since 1.0.1
+ */
+-(IBAction)TKSeeAlbumAction:(id)sender
+{
+    
+}
+
+
+#pragma mark - TKNavigationController delegate
+- (void)didTakePicture:(TKNavigationController*)navigationController image:(UIImage*)image
+{
+
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+@end

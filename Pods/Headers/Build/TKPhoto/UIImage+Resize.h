@@ -1,0 +1,1 @@
+../../../TKPhoto/UIImage+Resize.h

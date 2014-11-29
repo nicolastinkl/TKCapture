@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehD-cj-egX">
+                                <rect key="frame" x="267" y="103" width="112" height="77"/>
+                                <state key="normal" title="拍照" image="tk_lanrentuku_0000s_0026_camera"/>
+                                <connections>
+                                    <action selector="TKTakePhotoAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="KMS-Mk-QG1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hda-x3-Ofo">
+                                <rect key="frame" x="283" y="271" width="90" height="44"/>
+                                <state key="normal" title="相册" image="tk_lanrentuku_0000s_0027_photo-gallery"/>
+                                <connections>
+                                    <action selector="TKSeeAlbumAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="7Ng-GR-oNU"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="hda-x3-Ofo" secondAttribute="centerY" id="7Iy-13-Fwb"/>
+                            <constraint firstAttribute="centerX" secondItem="hda-x3-Ofo" secondAttribute="centerX" id="Mx3-Fh-f5k"/>
+                            <constraint firstAttribute="centerX" secondItem="ehD-cj-egX" secondAttribute="centerX" id="Xl6-my-3Zc"/>
+                            <constraint firstAttribute="centerY" secondItem="ehD-cj-egX" secondAttribute="centerY" constant="100" id="lci-Cs-pC1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="TKBtn_Album" destination="hda-x3-Ofo" id="kvY-4a-vUW"/>
+                        <outlet property="TKBtn_Camera" destination="ehD-cj-egX" id="kke-Ro-cTp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="225" y="376"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="tk_lanrentuku_0000s_0026_camera" width="50" height="38"/>
+        <image name="tk_lanrentuku_0000s_0027_photo-gallery" width="54" height="44"/>
+    </resources>
+</document>

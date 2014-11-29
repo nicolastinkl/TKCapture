@@ -1,0 +1,16 @@
+PODS:
+  - Objection (1.4)
+  - SVProgressHUD (1.0)
+  - TKPhoto (HEAD based on 1.0.6)
+
+DEPENDENCIES:
+  - Objection (~> 1.4)
+  - SVProgressHUD (~> 1.0)
+  - TKPhoto (HEAD)
+
+SPEC CHECKSUMS:
+  Objection: 8176a996209cdcd23490c57d6e807a25faa8d54d
+  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+  TKPhoto: dd1bc29f1ef034134fd964de2f732b3b32bfeb7f
+
+COCOAPODS: 0.35.0
