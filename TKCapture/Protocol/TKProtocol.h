@@ -45,5 +45,7 @@
  *  相册view protocol
  */
 @protocol TKAssetsProtocol <NSObject>
+
 -(void) fillAssetsGroup:(ALAssetsGroup *)assetsGroup;
+
 @end

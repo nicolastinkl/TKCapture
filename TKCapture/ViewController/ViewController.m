@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "TKNavigationController.h"
-#import "CTAssetsPickerController.h"
 #import "TKProtocol.h"
 #import <Objection.h>
 @interface ViewController ()

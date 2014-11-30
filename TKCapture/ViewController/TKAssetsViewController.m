@@ -15,6 +15,8 @@
 #import "TKAlbumViewController.h"
 #import "TKAlibumGroupViewController.h"
 
+static CGRect oldframe;
+
 #pragma mark --------------------------------------cell --------------------
 
 @interface TKAssetsViewCell : UICollectionViewCell
@@ -41,23 +43,14 @@
 @implementation TKAssetsViewCell
 
 static UIFont *titleFont = nil;
-
 static CGFloat titleHeight;
-static UIImage *videoIcon;
 static UIColor *titleColor;
-static UIImage *checkedIcon;
-static UIColor *selectedColor;
-static UIColor *disabledColor;
 
 + (void)initialize
 {
-    titleFont       = [UIFont systemFontOfSize:12];
+    titleFont       = [UIFont systemFontOfSize:14];
     titleHeight     = 20.0f;
-    videoIcon       = [UIImage imageNamed:@"CTAssetsPickerVideo"];
     titleColor      = [UIColor whiteColor];
-    checkedIcon     = [UIImage imageNamed:@"CTAssetsPickerChecked"];
-    selectedColor   = [UIColor colorWithWhite:1 alpha:0.3];
-    disabledColor   = [UIColor colorWithWhite:1 alpha:0.9];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -84,107 +77,10 @@ static UIColor *disabledColor;
     }
 }
 
-- (void)setSelected:(BOOL)selected
-{
-    [super setSelected:selected];
-    [self setNeedsDisplay];
-}
-
-// Draw everything to improve scrolling responsiveness
-
 - (void)drawRect:(CGRect)rect
 {
-    // Image
     [self.image drawInRect:CGRectMake(0, 0, kThumbnailLength, kThumbnailLength)];
-    
-    // Video title
-    if ([self.type isEqual:ALAssetTypeVideo])
-    {
-        // Create a gradient from transparent to black
-        CGFloat colors [] = {
-            0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.8,
-            0.0, 0.0, 0.0, 1.0
-        };
-        
-        CGFloat locations [] = {0.0, 0.75, 1.0};
-        
-        CGColorSpaceRef baseSpace   = CGColorSpaceCreateDeviceRGB();
-        CGGradientRef gradient      = CGGradientCreateWithColorComponents(baseSpace, colors, locations, 2);
-        
-        CGContextRef context    = UIGraphicsGetCurrentContext();
-        
-        CGFloat height          = rect.size.height;
-        CGPoint startPoint      = CGPointMake(CGRectGetMidX(rect), height - titleHeight);
-        CGPoint endPoint        = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
-        
-        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsBeforeStartLocation);
-        
-        
-        CGSize titleSize        = [self.title sizeWithFont:titleFont];
-        [titleColor set];
-        [self.title drawAtPoint:CGPointMake(rect.size.width - titleSize.width - 2 , startPoint.y + (titleHeight - 12) / 2)
-                       forWidth:kThumbnailLength
-                       withFont:titleFont
-                       fontSize:12
-                  lineBreakMode:NSLineBreakByTruncatingTail
-             baselineAdjustment:UIBaselineAdjustmentAlignCenters];
-        
-        [videoIcon drawAtPoint:CGPointMake(2, startPoint.y + (titleHeight - videoIcon.size.height) / 2)];
-    }
-    
-    if (self.disabled)
-    {
-        CGContextRef context    = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(context, disabledColor.CGColor);
-        CGContextFillRect(context, rect);
-    }
-    
-    else if (self.selected)
-    {
-        CGContextRef context    = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(context, selectedColor.CGColor);
-        CGContextFillRect(context, rect);
-        
-        [checkedIcon drawAtPoint:CGPointMake(CGRectGetMaxX(rect) - checkedIcon.size.width, CGRectGetMinY(rect))];
-    }
 }
-
-
-- (NSString *)accessibilityLabel
-{
-    ALAssetRepresentation *representation = self.asset.defaultRepresentation;
-    
-    NSMutableArray *labels          = [[NSMutableArray alloc] init];
-    NSString *type                  = [self.asset valueForProperty:ALAssetPropertyType];
-    NSDate *date                    = [self.asset valueForProperty:ALAssetPropertyDate];
-    CGSize dimension                = representation.dimensions;
-    
-    
-    // Type
-    if ([type isEqual:ALAssetTypeVideo])
-        [labels addObject:@"视频"];
-    else
-        [labels addObject:@"照片"];
-    
-    // Orientation
-    if (dimension.height >= dimension.width)
-        [labels addObject:@"竖屏"];
-    else
-        [labels addObject:@"横屏"];
-    
-    // Date
-    NSDateFormatter *df             = [[NSDateFormatter alloc] init];
-    df.locale                       = [NSLocale currentLocale];
-    df.dateStyle                    = NSDateFormatterMediumStyle;
-    df.timeStyle                    = NSDateFormatterShortStyle;
-    df.doesRelativeDateFormatting   = YES;
-    
-    [labels addObject:[df stringFromDate:date]];
-    
-    return [labels componentsJoinedByString:@", "];
-}
-
 
 @end
 
@@ -242,9 +138,8 @@ static UIColor *disabledColor;
         
         if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
             [self setEdgesForExtendedLayout:UIRectEdgeNone];
-        
-        if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
-            [self setContentSizeForViewInPopover:kPopoverContentSize];
+
+        self.preferredContentSize = kPopoverContentSize;
     }
     
     return self;
@@ -253,8 +148,7 @@ static UIColor *disabledColor;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupViews];
-    [self setupButtons];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
 
@@ -262,9 +156,6 @@ static UIColor *disabledColor;
 {
     self.assetsGroup = assetsGroup;
 }
-
-
-
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -293,22 +184,6 @@ static UIColor *disabledColor;
     [self.collectionView setCollectionViewLayout:self.layout animated:YES];
 }
 
-
-#pragma mark - Setup
-
-- (void)setupViews
-{
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-}
-
-- (void)setupButtons
-{
-    self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:@"完成"
-                                     style:UIBarButtonItemStyleDone
-                                    target:self
-                                    action:@selector(finishPickingAssets:)];
-}
 
 - (void)setupAssets
 {
@@ -367,9 +242,11 @@ static UIColor *disabledColor;
     TKAssetsViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     ALAsset* asset = [self.assets objectAtIndex:indexPath.row];
     [cell bind:asset];
+    [cell setNeedsDisplay];
     return cell;
 }
 
+//底部view
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *viewIdentifiert = kAssetsSupplementaryViewIdentifier;
@@ -382,86 +259,52 @@ static UIColor *disabledColor;
     return view;
 }
 
-
 #pragma mark - Collection View Delegate
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return true;
-//    TKAlbumViewController *vc = (TKAlbumViewController *)self.navigationController;
-//    ALAsset* asset = [self.assets objectAtIndex:indexPath.row];
-//    BOOL selectable = [vc.selectionFilter evaluateWithObject:asset];
-//    
-//    return (selectable && collectionView.indexPathsForSelectedItems.count < vc.maximumNumberOfSelection);
-}
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    TKAlbumViewController *vc = (TKAlbumViewController *)self.navigationController;
-//    vc.indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems;
-//    
-//    if ([vc.delegate respondsToSelector:@selector(assetsPickerController:didSelectItemAtIndexPath:)])
-//        [vc.delegate assetsPickerController:vc didSelectItemAtIndexPath:indexPath];
-//    
-//    [self setTitleWithSelectedIndexPaths:collectionView.indexPathsForSelectedItems];
+    
+    TKAssetsViewCell *cell = (TKAssetsViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    ALAsset* asset = [self.assets objectAtIndex:indexPath.row];
+    UIImage *image =[UIImage imageWithCGImage:asset.aspectRatioThumbnail];
+    [self showImage:cell withImage:image];
+    
 }
 
-#pragma mark - Title
-
-- (void)setTitleWithSelectedIndexPaths:(NSArray *)indexPaths
+-(void) showImage:(UIView *) viewCell withImage:(UIImage *) image
 {
-    // Reset title to group name
-    if (indexPaths.count == 0)
-    {
-        self.title = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
-        return;
-    }
+    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+    UIView *backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    oldframe=[viewCell convertRect:viewCell.bounds toView:window];
+    backgroundView.backgroundColor=[UIColor blackColor];
+    backgroundView.alpha=0;
+    UIImageView *imageView=[[UIImageView alloc]initWithFrame:oldframe];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
+    imageView.tag=1;
     
-    BOOL photosSelected = NO;
-    BOOL videoSelected  = NO;
+    imageView.image = image;
     
-    for (NSIndexPath *indexPath in indexPaths)
-    {
-        ALAsset *asset = [self.assets objectAtIndex:indexPath.item];
+    [backgroundView addSubview:imageView];
+    [window addSubview:backgroundView];
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideImage:)];
+    [backgroundView addGestureRecognizer: tap];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        imageView.frame=CGRectMake(0,([UIScreen mainScreen].bounds.size.height-image.size.height*[UIScreen mainScreen].bounds.size.width/image.size.width)/2, [UIScreen mainScreen].bounds.size.width, image.size.height*[UIScreen mainScreen].bounds.size.width/image.size.width);
+        backgroundView.alpha=1;
+    } completion:^(BOOL finished) {
         
-        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypePhoto])
-            photosSelected  = YES;
-        
-        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
-            videoSelected   = YES;
-        
-        if (photosSelected && videoSelected)
-            break;
-    }
-    
-    NSString *format;
-    
-    if (photosSelected && videoSelected)
-        format = @"已选取 %ld 个項目";
-    
-    else if (photosSelected)
-        format = @"已选取 %ld 张照片"; //(indexPaths.count > 1) ? NSLocalizedString(@"%ld Photos Selected", nil) : NSLocalizedString(@"%ld Photo Selected", nil);
-    
-    else if (videoSelected)
-        format =  @"已选取 %ld 部视频";;// (indexPaths.count > 1) ? NSLocalizedString(@"%ld Videos Selected", nil) : NSLocalizedString(@"%ld Video Selected", nil);
-    
-    self.title = [NSString stringWithFormat:format, (long)indexPaths.count];
+    }];
 }
-
-
-#pragma mark - Actions
-
-- (void)finishPickingAssets:(id)sender
-{
-    NSMutableArray *assets = [[NSMutableArray alloc] init];
-    
-    for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems)
-    {
-        [assets addObject:[self.assets objectAtIndex:indexPath.item]];
-    }
-    
-    TKAlbumViewController *picker = (TKAlbumViewController *)self.navigationController;
-    [picker.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+-(void)hideImage:(UITapGestureRecognizer*)tap{
+    UIView *backgroundView=tap.view;
+    UIImageView *imageView=(UIImageView*)[tap.view viewWithTag:1];
+    [UIView animateWithDuration:0.3 animations:^{
+        imageView.frame=oldframe;
+        backgroundView.alpha=0;
+    } completion:^(BOOL finished) {
+        [backgroundView removeFromSuperview];
+    }];
 }
-
 @end

@@ -38,9 +38,9 @@
     if (numberOfVideos == 0)
         title = [NSString stringWithFormat:@"%ld 张照片", (long)numberOfPhotos];
     else if (numberOfPhotos == 0)
-        title = [NSString stringWithFormat:@"%ld 部视频", (long)numberOfVideos];
+        title = [NSString stringWithFormat:@"%ld 个视频", (long)numberOfVideos];
     else
-        title = [NSString stringWithFormat:@"%ld 张照片, %ld 部视频", (long)numberOfPhotos, (long)numberOfVideos];
+        title = [NSString stringWithFormat:@"%ld 张照片, %ld 个视频", (long)numberOfPhotos, (long)numberOfVideos];
     
     self.sectionLabel.text = title;
 }

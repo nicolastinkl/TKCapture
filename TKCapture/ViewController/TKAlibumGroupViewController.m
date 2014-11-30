@@ -11,7 +11,6 @@
 #import <TKUtilsMacro.h>
 #import "TKAlibumGroupViewController.h"
 #import "TKAlbumViewController.h"
-
 #import "TKProtocol.h"
 #import <Objection.h>
 
@@ -83,7 +82,7 @@
 {
     [super viewDidLoad];
     
-    //init ui
+    //init UI
     self.title = @"相册";
     self.tableView.rowHeight = kThumbnailLength + 12;
     
@@ -95,21 +94,8 @@
                                     target:self
                                     action:@selector(dismiss:)];
     
-    
+    // setup
     [self setupGroup];
-}
-
-
-#pragma mark - Rotation
-
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
 
@@ -130,8 +116,8 @@
         if (group)
         {
             [group setAssetsFilter:assetsFilter];
-            if (group.numberOfAssets > 0)
-                [self.groups addObject:group];
+            [self.groups addObject:group];
+
         }
         else
         {
@@ -158,6 +144,11 @@
     [self.assetsLibrary enumerateGroupsWithTypes:type
                                       usingBlock:resultsBlock
                                     failureBlock:failureBlock];
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 
@@ -192,12 +183,12 @@
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
         [self setEdgesForExtendedLayout:UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom];
     
-    self.title              = @"";
-    UILabel *message        = [UILabel new];
+    self.title              = @"没有权限";
+    UILabel *message        = [[UILabel alloc] init];
     message.translatesAutoresizingMaskIntoConstraints = NO;
     message.preferredMaxLayoutWidth = 304.0f;
     message.text            = @"无法取用您的照片:您可以在「隐私->照片」中启用存取。";
-    message.textColor       = [UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1];
+    message.textColor       = [UIColor blackColor];
     message.textAlignment   = NSTextAlignmentCenter;
     message.numberOfLines   = 5;
     [message sizeToFit];
@@ -213,7 +204,7 @@
     title.translatesAutoresizingMaskIntoConstraints = NO;
     title.preferredMaxLayoutWidth = 304.0f;
     title.text              = @"没有照片";
-    title.textColor         = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
+    title.textColor         = [UIColor blackColor];
     title.textAlignment     = NSTextAlignmentCenter;
     title.numberOfLines     = 5;
     [title sizeToFit];
@@ -262,6 +253,7 @@
     UIViewController<TKAssetsProtocol> * vc = [[JSObjection defaultInjector] getObject:@protocol(TKAssetsProtocol)];
     [vc fillAssetsGroup:[self.groups objectAtIndex:indexPath.row]];
     [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 #pragma mark - Actions

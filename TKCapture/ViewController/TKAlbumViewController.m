@@ -16,18 +16,15 @@
 
 @implementation TKAlbumViewController 
 
+
 - (id)init
 {
     UIViewController<TKAlbumGroupProtocol> * groupViewController = [[JSObjection defaultInjector] getObject:@protocol(TKAlbumGroupProtocol)];
     
     if (self = [super initWithRootViewController:groupViewController])
     {
-        if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
-        {
-            [self setContentSizeForViewInPopover:kPopoverContentSize];
-        }
+        self.preferredContentSize = kPopoverContentSize;
     }
-    // UIViewController.preferredContentSize
     return self;
 }
 
