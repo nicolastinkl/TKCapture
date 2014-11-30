@@ -11,7 +11,7 @@
 #import <TKUtilsMacro.h>
 #import <UIView+Additon.h>
 #import <objc/runtime.h>
-
+#import <Objection.h>
 #import "TKNavigationController.h"
 #import "TKTakePhotoViewController.h"
 #import "TKCaptureSessionManager.h"
@@ -53,6 +53,7 @@ static const void *SwitchSessionNameKey = &SwitchSessionNameKey;
     int alphaTimes;
     CGPoint currTouchPoint;
 }
+
 @property (nonatomic, strong) TKCaptureSessionManager *captureManager;
 
 @property (nonatomic, assign) CGRect previewRect;
@@ -68,10 +69,12 @@ static const void *SwitchSessionNameKey = &SwitchSessionNameKey;
 
 @property (nonatomic, strong) UIImageView *focusImageView;  //对焦
 
+
 @end
 
 @implementation TKTakePhotoViewController
 
+//objection_initializer(<#selectorSymbol#>, <#args...#>)
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -89,8 +92,10 @@ static const void *SwitchSessionNameKey = &SwitchSessionNameKey;
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     
     //init StatusBar NaviBar and body Rect..
     [self initStatusBarNaviBarRect];

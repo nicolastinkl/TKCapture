@@ -24,6 +24,9 @@
 - (void)configure
 {
     [self bindClass:[TKTakePhotoViewController class] toProtocol:@protocol(TKCameraProtocol)];
+    
+//    [self bindProvider:[[TKTakePhotoProvider alloc] init] toClass:[TKTakePhotoViewController class]];
+    
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <AssetsLibrary/AssetsLibrary.h>
 
 /*!
  *  @author tinkl, 14-11-29 18:11:49
@@ -25,4 +25,25 @@
  */
 @protocol TKCameraProtocol <NSObject>
 
+@end
+
+/*!
+ *  相册protocol
+ */
+@protocol TKAlbumProtocol <NSObject>
+
+@end
+
+/*!
+ *  相册组 protocol
+ */
+@protocol TKAlbumGroupProtocol <NSObject>
+
+@end
+
+/*!
+ *  相册view protocol
+ */
+@protocol TKAssetsProtocol <NSObject>
+-(void) fillAssetsGroup:(ALAssetsGroup *)assetsGroup;
 @end

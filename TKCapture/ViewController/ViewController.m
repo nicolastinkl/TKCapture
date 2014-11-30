@@ -8,7 +8,9 @@
 
 #import "ViewController.h"
 #import "TKNavigationController.h"
-
+#import "CTAssetsPickerController.h"
+#import "TKProtocol.h"
+#import <Objection.h>
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *TKBtn_Camera;
@@ -47,13 +49,8 @@
 -(IBAction)TKSeeAlbumAction:(id)sender
 {
     
-}
-
-
-#pragma mark - TKNavigationController delegate
-- (void)didTakePicture:(TKNavigationController*)navigationController image:(UIImage*)image
-{
-
+    UINavigationController*  viewController = [[JSObjection defaultInjector] getObject:@protocol(TKAlbumProtocol)];
+    [self presentViewController:viewController animated:YES completion:NULL];
 }
 
 - (void)didReceiveMemoryWarning {

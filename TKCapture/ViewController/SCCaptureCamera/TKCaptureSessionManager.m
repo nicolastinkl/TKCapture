@@ -76,7 +76,6 @@
 }
 
 /**
- /*!
  *  @author tinkl, 14-11-29 22:11:23
  *
  *  create queue

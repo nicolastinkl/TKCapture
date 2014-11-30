@@ -10,6 +10,8 @@
 
 #import "TKProtocol.h"
 #import "TKTakePhotoModule.h"
+#import "TKAlbumModule.h"
+
 #import <Objection.h>
 
 @interface AppDelegate ()
@@ -27,7 +29,10 @@
 {
     JSObjectionInjector *injector = [JSObjection defaultInjector];
     injector = injector ? : [JSObjection createInjector];
-    injector = [injector withModules: [[TKTakePhotoModule alloc] init],nil];
+    injector = [injector withModules:[[TKTakePhotoModule alloc] init],
+                                    [[TKAlbumModule alloc] init],
+                                    [[TKAlbumGroupModule alloc] init],
+                                    [[TKAssetsModule alloc] init],nil];
     [JSObjection setDefaultInjector:injector];
 }
 
