@@ -20,7 +20,6 @@
 		934F00B91A28CF31002E66A9 /* TKCaptureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 934F00B81A28CF31002E66A9 /* TKCaptureTests.m */; };
 		939BD82F1A29B997006BCE0C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 939BD82E1A29B997006BCE0C /* ViewController.m */; };
 		939BD8321A29BA2F006BCE0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 939BD8311A29BA2F006BCE0C /* Main.storyboard */; };
-		939BD88D1A29BFD9006BCE0C /* TKCaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 939BD85C1A29BFD9006BCE0C /* TKCaptureSessionManager.m */; };
 		939BD8971A29C00E006BCE0C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 939BD8961A29C00E006BCE0C /* AVFoundation.framework */; };
 		939BD8991A29C017006BCE0C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 939BD8981A29C017006BCE0C /* CoreGraphics.framework */; };
 		939BD89B1A29C027006BCE0C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 939BD89A1A29C027006BCE0C /* libz.dylib */; };
@@ -28,6 +27,7 @@
 		939BD8AA1A29C505006BCE0C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 939BD8A91A29C505006BCE0C /* CoreMedia.framework */; };
 		939BD8B51A29DF5A006BCE0C /* TKTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 939BD8B41A29DF5A006BCE0C /* TKTakePhotoViewController.m */; };
 		939BD8B81A29E931006BCE0C /* TKTakePhotoModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 939BD8B71A29E931006BCE0C /* TKTakePhotoModule.m */; };
+		93F676021A2C213D00CDE5A8 /* TKCaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F676011A2C213D00CDE5A8 /* TKCaptureSessionManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,8 +66,6 @@
 		939BD82D1A29B997006BCE0C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		939BD82E1A29B997006BCE0C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		939BD8311A29BA2F006BCE0C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		939BD85B1A29BFD9006BCE0C /* TKCaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKCaptureSessionManager.h; path = SCCaptureCamera/TKCaptureSessionManager.h; sourceTree = "<group>"; };
-		939BD85C1A29BFD9006BCE0C /* TKCaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKCaptureSessionManager.m; path = SCCaptureCamera/TKCaptureSessionManager.m; sourceTree = "<group>"; };
 		939BD8961A29C00E006BCE0C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		939BD8981A29C017006BCE0C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		939BD89A1A29C027006BCE0C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -78,6 +76,8 @@
 		939BD8B41A29DF5A006BCE0C /* TKTakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKTakePhotoViewController.m; sourceTree = "<group>"; };
 		939BD8B61A29E931006BCE0C /* TKTakePhotoModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKTakePhotoModule.h; path = ../ViewController/TKTakePhotoModule.h; sourceTree = "<group>"; };
 		939BD8B71A29E931006BCE0C /* TKTakePhotoModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKTakePhotoModule.m; path = ../ViewController/TKTakePhotoModule.m; sourceTree = "<group>"; };
+		93F676001A2C213D00CDE5A8 /* TKCaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKCaptureSessionManager.h; sourceTree = "<group>"; };
+		93F676011A2C213D00CDE5A8 /* TKCaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKCaptureSessionManager.m; sourceTree = "<group>"; };
 		9D6E7F213ECDCF12C04E72DD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -208,10 +208,10 @@
 		939BD8371A29BFD1006BCE0C /* CameraView */ = {
 			isa = PBXGroup;
 			children = (
+				93F676001A2C213D00CDE5A8 /* TKCaptureSessionManager.h */,
+				93F676011A2C213D00CDE5A8 /* TKCaptureSessionManager.m */,
 				939BD8B31A29DF4E006BCE0C /* TKTakePhotoViewController.h */,
 				939BD8B41A29DF5A006BCE0C /* TKTakePhotoViewController.m */,
-				939BD85B1A29BFD9006BCE0C /* TKCaptureSessionManager.h */,
-				939BD85C1A29BFD9006BCE0C /* TKCaptureSessionManager.m */,
 			);
 			name = CameraView;
 			sourceTree = "<group>";
@@ -419,9 +419,9 @@
 				931FBE371A2AF89E00F5DD2A /* TKAlibumGroupViewController.m in Sources */,
 				939BD82F1A29B997006BCE0C /* ViewController.m in Sources */,
 				934F00A21A28CF31002E66A9 /* AppDelegate.m in Sources */,
-				939BD88D1A29BFD9006BCE0C /* TKCaptureSessionManager.m in Sources */,
 				931FBE3D1A2AFB8100F5DD2A /* TKAssetsSupplementaryView.m in Sources */,
 				931FBE3A1A2AF9FC00F5DD2A /* TKAssetsViewController.m in Sources */,
+				93F676021A2C213D00CDE5A8 /* TKCaptureSessionManager.m in Sources */,
 				939BD8B81A29E931006BCE0C /* TKTakePhotoModule.m in Sources */,
 				931FBE311A2AF41E00F5DD2A /* TKAlbumModule.m in Sources */,
 				934F009F1A28CF31002E66A9 /* main.m in Sources */,
