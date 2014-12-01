@@ -9,6 +9,7 @@ TKCapture
 ## 2. you need to update to pod.
 
 `git clone git@github.com:nicolastinkl/TKCapture.git`
+
 `pod install` or `pod update`
 
 ## 3. just run xcode
