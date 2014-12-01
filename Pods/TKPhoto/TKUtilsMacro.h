@@ -5,15 +5,19 @@
 //
 
 
-#define NEED_OUTPUT_LOG                     1   // 0 relese  1 debug
+#define NEED_OUTPUT_LOG                     0   // 0 relese  1 debug
 
 /*!
  *  public macro
  */
+#define WEAKSELF_SC                         __weak __typeof(&*self)weakSelf_SC = self;
 #define ApplicationDelegate                 ((MDAppDelegate *)[[UIApplication sharedApplication] delegate])
 #define UserDefaults                        [NSUserDefaults standardUserDefaults]
 #define IOS7                                [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
 #define IOS6                                [[[UIDevice currentDevice] systemVersion] floatValue] < 7.0
+#define isPad_SC                            (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define isPad_AllTargetMode_SC              ([[UIDevice currentDevice].model rangeOfString:@"iPad"].location != NSNotFound)
+#define isHigherThaniPhone4_SC              ((isPad_AllTargetMode_SC && [[UIScreen mainScreen] applicationFrame].size.height <= 960 ? NO : ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? ([[UIScreen mainScreen] currentMode].size.height > 960 ? YES : NO) : NO)))
 #define KEY_WINDOW                          [[UIApplication sharedApplication]keyWindow]
 #define NavBarHeight                        self.navigationController.navigationBar.bounds.size.height
 #define TabBarHeight                        self.tabBarController.tabBar.bounds.size.height
@@ -36,7 +40,24 @@
 #define RectSetSize(f, w, h)                CGRectMake(RectX(f), RectY(f), w, h)
 #define RectSetOrigin(f, x, y)              CGRectMake(x, y, RectWidth(f), RectHeight(f))
 #define RectSetOriginWH(x, w, h)            CGRectMake(x, 5, w, h)
-#define RectSetOriginXYWH(x,y, w, h)            CGRectMake(x, y, w, h)
+#define RectSetOriginXYWH(x,y, w, h)        CGRectMake(x, y, w, h)
+#define kThumbnailLength                    78.0f
+#define kThumbnailSize                      CGSizeMake(kThumbnailLength, kThumbnailLength)
+#define kPopoverContentSize                 CGSizeMake(320, 480)
+
+#define rgba_SC(r, g, b, a)                 [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+
+//frame and size
+#define SC_DEVICE_BOUNDS                    [[UIScreen mainScreen] bounds]
+#define SC_DEVICE_SIZE                      [[UIScreen mainScreen] bounds].size
+
+#define SC_APP_FRAME                        [[UIScreen mainScreen] applicationFrame]
+#define SC_APP_SIZE                         [[UIScreen mainScreen] applicationFrame].size
+
+#define SELF_CON_FRAME      self.view.frame
+#define SELF_CON_SIZE       self.view.frame.size
+#define SELF_VIEW_FRAME     self.frame
+#define SELF_VIEW_SIZE      self.frame.size
 
 #define RGB(r, g, b)                        [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 #define RGBA(r, g, b, a)                    [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
@@ -47,17 +68,10 @@
 #define APP_CACHES_PATH                     [NSSearchPathForDirectoriesInDomains (NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0]
 #define ios7BlueColor                        [UIColor colorWithRed:0.188 green:0.655 blue:1.000 alpha:1.000]
 
-// 是否iPad
-#define isPad_SC (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)//设备类型改为Universal才能生效
-#define isPad_AllTargetMode_SC ([[UIDevice currentDevice].model rangeOfString:@"iPad"].location != NSNotFound)//设备类型为任何类型都能生效
-
-//iPhone5及以上设备，按钮的位置放在下面。iPhone5以下的按钮放上面。
-#define isHigherThaniPhone4_SC ((isPad_AllTargetMode_SC && [[UIScreen mainScreen] applicationFrame].size.height <= 960 ? NO : ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? ([[UIScreen mainScreen] currentMode].size.height > 960 ? YES : NO) : NO)))
-//#define isHigherThaniPhone4_SC (isPad_SC ? YES : ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? ([[UIScreen mainScreen] currentMode].size.height > 960 ? YES : NO) : NO))
-
 #define TableViewBackgroundViewColor        RGB(244, 244, 244)
 #define TableViewSelectBackgroundViewColor  RGB(232, 232, 232)
- 
+
+#define REPLACE_SPACE_STR(content)          [content stringByReplacingOccurrencesOfString:@" " withString:@" "]
 
 // CGRect扩张
 CG_INLINE CGRect
@@ -95,18 +109,14 @@ CGRectMakeWithSize(CGSize size)
 #define SYSTEMFONT(FONTSIZE)     [UIFont systemFontOfSize:FONTSIZE]
 #define FONT(NAME,FONTSIZE)      [UIFont fontWithName:(NAME) size:(FONTSIZE)]
 
-/*!
- *  Storyboard Name
- */
-#define StoryboardWithName_LoginWithRegsiter    @"storyboardWithName_LoginWithRegsiter"
-#define StoryboardWithName_BoxHire              @"storyboardWithNameBoxHire"
-#define StoryboardWithName_SendExpress          @"storyboardWithNameSendExpress"
-
 /*
  Notification Name
  */
-#define NotificationWithName_LoginWithRegsiter      @"NotificationWithName_LoginWithRegsiter"
-#define NotificationWithName_LeftSideFill           @"NotificationWithName_LeftSideFill"
+#define kCapturedPhotoSuccessfully              @"takePhotoSuccess"
+#define kImage                                  @"image"
+#define kFilterImage                            @"image"
+#define kAudioAmrName                           @"amrName"
+#define kAudioDuration                          @"audioDuration"
 
 /*!
  *  SLog
@@ -143,73 +153,6 @@ SLLog(@"%s h=%f, s=%f, v=%f", #_COLOR, _COLOR.hue, _COLOR.saturation, _COLOR.val
 #endif
 
 
-
-#ifndef SCCaptureCameraDemo_SCDefines_h
-#define SCCaptureCameraDemo_SCDefines_h
-
-/**
- *  相机：SCCaptureCamera needs four frameworks:
- *  1、CoreMedia.framework
- *  2、QuartzCore.framework
- *  3、AVFoundation.framework
- *  4、ImmageIO.framework
- *
- */
-
-
-// Debug Logging
-#if 0 // Set to 1 to enable debug logging
-#define SCDLog(x, ...) NSLog(x, ## __VA_ARGS__);
-#else
-#define SCDLog(x, ...)
-#endif
-
-//notification
-#define kCapturedPhotoSuccessfully              @"caputuredPhotoSuccessfully"
-#define kNotificationOrientationChange          @"kNotificationOrientationChange"
-#define kNotificationTakePicture                @"kNotificationTakePicture"
-
-#define kImage                                  @"image"
-#define kFilterImage                            @"image"
-#define kAudioAmrName                           @"amrName"
-#define kAudioDuration                          @"audioDuration"
-
-//weakself
-#define WEAKSELF_SC __weak __typeof(&*self)weakSelf_SC = self;
-
-
-//cort text里的空格要转一下
-#define REPLACE_SPACE_STR(content) [content stringByReplacingOccurrencesOfString:@" " withString:@" "]
-
-//color
-#define rgba_SC(r, g, b, a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
-
-//frame and size
-#define SC_DEVICE_BOUNDS    [[UIScreen mainScreen] bounds]
-#define SC_DEVICE_SIZE      [[UIScreen mainScreen] bounds].size
-
-#define SC_APP_FRAME        [[UIScreen mainScreen] applicationFrame]
-#define SC_APP_SIZE         [[UIScreen mainScreen] applicationFrame].size
-
-#define SELF_CON_FRAME      self.view.frame
-#define SELF_CON_SIZE       self.view.frame.size
-#define SELF_VIEW_FRAME     self.frame
-#define SELF_VIEW_SIZE      self.frame.size
-
-// 是否iPad
-#define isPad_SC (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)//设备类型改为Universal才能生效
-#define isPad_AllTargetMode_SC ([[UIDevice currentDevice].model rangeOfString:@"iPad"].location != NSNotFound)//设备类型为任何类型都能生效
-
-//iPhone5及以上设备，按钮的位置放在下面。iPhone5以下的按钮放上面。
-#define isHigherThaniPhone4_SC ((isPad_AllTargetMode_SC && [[UIScreen mainScreen] applicationFrame].size.height <= 960 ? NO : ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? ([[UIScreen mainScreen] currentMode].size.height > 960 ? YES : NO) : NO)))
-//#define isHigherThaniPhone4_SC (isPad_SC ? YES : ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? ([[UIScreen mainScreen] currentMode].size.height > 960 ? YES : NO) : NO))
-
-#define IS_IOS7             ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)
-#define kThumbnailLength    78.0f
-#define kThumbnailSize      CGSizeMake(kThumbnailLength, kThumbnailLength)
-#define kPopoverContentSize CGSizeMake(320, 480)
-
-
 #if __IPHONE_6_0 // iOS6 and later
 
 #   define kTextAlignmentCenter_SC    NSTextAlignmentCenter
@@ -239,7 +182,8 @@ SLLog(@"%s h=%f, s=%f, v=%f", #_COLOR, _COLOR.hue, _COLOR.saturation, _COLOR.val
 #endif
 
 
-#endif
+
+
 
 
 

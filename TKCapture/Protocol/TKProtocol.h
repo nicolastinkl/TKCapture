@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
 /*!
@@ -47,5 +48,16 @@
 @protocol TKAssetsProtocol <NSObject>
 
 -(void) fillAssetsGroup:(ALAssetsGroup *)assetsGroup;
+
+@end
+
+
+
+/*!
+ *  滤镜view protocol
+ */
+@protocol TKFitlersProtocol <NSObject>
+
+-(void) fitlersImage:(UIImage *) image;
 
 @end

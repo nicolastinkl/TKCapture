@@ -32,7 +32,8 @@
     injector = [injector withModules:[[TKTakePhotoModule alloc] init],
                                     [[TKAlbumModule alloc] init],
                                     [[TKAlbumGroupModule alloc] init],
-                                    [[TKAssetsModule alloc] init],nil];
+                                    [[TKAssetsModule alloc] init],
+                                    [[TKFitlerModule alloc] init],nil];
     [JSObjection setDefaultInjector:injector];
 }
 

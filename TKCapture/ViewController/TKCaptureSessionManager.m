@@ -133,16 +133,16 @@
     
     for (AVCaptureDevice *device in devices) {
         
-        SCDLog(@"Device name: %@", [device localizedName]);
+        SLog(@"Device name: %@", [device localizedName]);
         
         if ([device hasMediaType:AVMediaTypeVideo]) {
             
             if ([device position] == AVCaptureDevicePositionBack) {
-                SCDLog(@"Device position : back");
+                SLog(@"Device position : back");
                 backCamera = device;
                 
             }  else {
-                SCDLog(@"Device position : front");
+                SLog(@"Device position : front");
                 frontCamera = device;
             }
         }
@@ -158,7 +158,7 @@
                 self.inputDevice = frontFacingCameraDeviceInput;
                 
             } else {
-                SCDLog(@"Couldn't add front facing video input");
+                SLog(@"Couldn't add front facing video input");
             }
         }
     } else {
@@ -168,7 +168,7 @@
                 [_session addInput:backFacingCameraDeviceInput];
                 self.inputDevice = backFacingCameraDeviceInput;
             } else {
-                SCDLog(@"Couldn't add back facing video input");
+                SLog(@"Couldn't add back facing video input");
             }
         }
     }
@@ -218,38 +218,35 @@
 - (void)takePicture:(DidCapturePhotoBlock)block {
     AVCaptureConnection *videoConnection = [self findVideoConnection];
     
-//	UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
-//	AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
-//    [videoConnection setVideoOrientation:avcaptureOrientation];
     [videoConnection setVideoScaleAndCropFactor:_scaleNum];
     
-	SCDLog(@"about to request a capture from: %@", _stillImageOutput);
+	SLog(@"about to request a capture from: %@", _stillImageOutput);
     
     [_stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
         
         CFDictionaryRef exifAttachments = CMGetAttachment(imageDataSampleBuffer, kCGImagePropertyExifDictionary, NULL);
         if (exifAttachments) {
-            SCDLog(@"attachements: %@", exifAttachments);
+            SLog(@"attachements: %@", exifAttachments);
         } else {
-            SCDLog(@"no attachments");
+            SLog(@"no attachments");
         }
         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
         UIImage *image = [[UIImage alloc] initWithData:imageData];
-        SCDLog(@"originImage:%@", [NSValue valueWithCGSize:image.size]);
+        SLog(@"originImage:%@", [NSValue valueWithCGSize:image.size]);
         
         CGFloat squareLength = SC_APP_SIZE.width;
-        CGFloat headHeight = _previewLayer.bounds.size.height - squareLength;//_previewLayer的frame是(0, 44, 320, 320 + 44)
+        CGFloat headHeight = _previewLayer.bounds.size.height - squareLength;
         CGSize size = CGSizeMake(squareLength * 2, squareLength * 2);
         
         UIImage *scaledImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:size interpolationQuality:kCGInterpolationHigh];
-        SCDLog(@"scaledImage:%@", [NSValue valueWithCGSize:scaledImage.size]);
+        SLog(@"scaledImage:%@", [NSValue valueWithCGSize:scaledImage.size]);
         
         CGRect cropFrame = CGRectMake((scaledImage.size.width - size.width) / 2, (scaledImage.size.height - size.height) / 2 + headHeight, size.width, size.height);
-        SCDLog(@"cropFrame:%@", [NSValue valueWithCGRect:cropFrame]);
+        SLog(@"cropFrame:%@", [NSValue valueWithCGRect:cropFrame]);
         UIImage *croppedImage = [scaledImage croppedImage:cropFrame];
-        SCDLog(@"croppedImage:%@", [NSValue valueWithCGSize:croppedImage.size]);
+        SLog(@"croppedImage:%@", [NSValue valueWithCGSize:croppedImage.size]);
         
-        
+        //调整图片orientation
         UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
         if (orientation != UIDeviceOrientationPortrait) {
             
@@ -264,9 +261,7 @@
             croppedImage = [croppedImage rotatedByDegrees:degree];
         }
         
-//        self.imageView.image = croppedImage;
-        
-        //block、delegate、notification 3选1，传值
+        //block、delegate、notification
         if (block) {
             block(croppedImage);
         } else if ([_delegate respondsToSelector:@selector(didCapturePhoto:)]) {
@@ -419,7 +414,7 @@
 		}
 		else
 		{
-			SCDLog(@"%@", error);
+			SLog(@"%@", error);
 		}
 	});
 }

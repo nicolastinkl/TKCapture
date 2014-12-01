@@ -13,6 +13,7 @@
 		931FBE371A2AF89E00F5DD2A /* TKAlibumGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 931FBE361A2AF89E00F5DD2A /* TKAlibumGroupViewController.m */; };
 		931FBE3A1A2AF9FC00F5DD2A /* TKAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 931FBE391A2AF9FC00F5DD2A /* TKAssetsViewController.m */; };
 		931FBE3D1A2AFB8100F5DD2A /* TKAssetsSupplementaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 931FBE3C1A2AFB8100F5DD2A /* TKAssetsSupplementaryView.m */; };
+		932320141A2C322900D4B49F /* TKImageFiltersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932320131A2C322900D4B49F /* TKImageFiltersViewController.m */; };
 		934F009F1A28CF31002E66A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 934F009E1A28CF31002E66A9 /* main.m */; };
 		934F00A21A28CF31002E66A9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 934F00A11A28CF31002E66A9 /* AppDelegate.m */; };
 		934F00AA1A28CF31002E66A9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 934F00A91A28CF31002E66A9 /* Images.xcassets */; };
@@ -53,6 +54,8 @@
 		931FBE391A2AF9FC00F5DD2A /* TKAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKAssetsViewController.m; sourceTree = "<group>"; };
 		931FBE3B1A2AFB7900F5DD2A /* TKAssetsSupplementaryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TKAssetsSupplementaryView.h; sourceTree = "<group>"; };
 		931FBE3C1A2AFB8100F5DD2A /* TKAssetsSupplementaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKAssetsSupplementaryView.m; sourceTree = "<group>"; };
+		932320121A2C320E00D4B49F /* TKImageFiltersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TKImageFiltersViewController.h; sourceTree = "<group>"; };
+		932320131A2C322900D4B49F /* TKImageFiltersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKImageFiltersViewController.m; sourceTree = "<group>"; };
 		934F00991A28CF31002E66A9 /* TKCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TKCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		934F009D1A28CF31002E66A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		934F009E1A28CF31002E66A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -114,6 +117,15 @@
 				931FBE301A2AF41E00F5DD2A /* TKAlbumModule.m */,
 			);
 			path = Modules;
+			sourceTree = "<group>";
+		};
+		932320111A2C31EB00D4B49F /* ImageFilterView */ = {
+			isa = PBXGroup;
+			children = (
+				932320121A2C320E00D4B49F /* TKImageFiltersViewController.h */,
+				932320131A2C322900D4B49F /* TKImageFiltersViewController.m */,
+			);
+			name = ImageFilterView;
 			sourceTree = "<group>";
 		};
 		934F00901A28CF31002E66A9 = {
@@ -188,6 +200,7 @@
 		939BD82C1A29B997006BCE0C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				932320111A2C31EB00D4B49F /* ImageFilterView */,
 				939BD8B91A2A115F006BCE0C /* AlbumView */,
 				939BD8371A29BFD1006BCE0C /* CameraView */,
 				939BD8301A29B9AA006BCE0C /* MainView */,
@@ -419,6 +432,7 @@
 				931FBE371A2AF89E00F5DD2A /* TKAlibumGroupViewController.m in Sources */,
 				939BD82F1A29B997006BCE0C /* ViewController.m in Sources */,
 				934F00A21A28CF31002E66A9 /* AppDelegate.m in Sources */,
+				932320141A2C322900D4B49F /* TKImageFiltersViewController.m in Sources */,
 				931FBE3D1A2AFB8100F5DD2A /* TKAssetsSupplementaryView.m in Sources */,
 				931FBE3A1A2AF9FC00F5DD2A /* TKAssetsViewController.m in Sources */,
 				93F676021A2C213D00CDE5A8 /* TKCaptureSessionManager.m in Sources */,

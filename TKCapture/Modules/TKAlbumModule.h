@@ -22,3 +22,7 @@
 @interface TKAssetsModule : JSObjectionModule
 
 @end
+
+@interface TKFitlerModule : JSObjectionModule
+
+@end

@@ -14,7 +14,7 @@
 #import "TKAlibumGroupViewController.h"
 #import "TKAlbumViewController.h"
 #import "TKAssetsViewController.h"
-
+#import "TKImageFiltersViewController.h"
 @implementation TKAlbumModule
 
 + (void)load
@@ -49,6 +49,16 @@
 - (void)configure
 {
      [self bindClass:[TKAssetsViewController class] toProtocol:@protocol(TKAssetsProtocol)];
+}
+
+@end
+
+@implementation TKFitlerModule
+
+
+- (void)configure
+{
+    [self bindClass:[TKImageFiltersViewController class] toProtocol:@protocol(TKFitlersProtocol)];
 }
 
 @end

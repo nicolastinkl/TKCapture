@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "TKProtocol.h"
 #import <Objection.h>
+
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *TKBtn_Camera;
@@ -53,6 +54,22 @@
 {
     
     UINavigationController*  viewController = [[JSObjection defaultInjector] getObject:@protocol(TKAlbumProtocol)];
+    [self presentViewController:viewController animated:YES completion:^{
+        
+    }];
+}
+
+/*!
+ *  @author tinkl, 14-11-29 16:11:35
+ *
+ *  查看照片滤镜
+ *
+ *  @since 1.0.1
+ */
+-(IBAction)TKSeeImageFilterAction:(id)sender
+{
+    UIViewController<TKFitlersProtocol>*  viewController = [[JSObjection defaultInjector] getObject:@protocol(TKFitlersProtocol)];
+    [viewController fitlersImage:[UIImage imageNamed:@"IMG_3159"]];
     [self presentViewController:viewController animated:YES completion:^{
         
     }];

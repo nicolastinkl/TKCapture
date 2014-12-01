@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E1FE9FFCD69C2FA957BCA95B"
+               BlueprintIdentifier = "0518E056A44C6E10C0BAFEFD"
                BuildableName = "libPods-TKPhoto.a"
                BlueprintName = "Pods-TKPhoto"
                ReferencedContainer = "container:Pods.xcodeproj">
