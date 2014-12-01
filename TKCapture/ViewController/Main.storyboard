@@ -32,7 +32,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pzN-tl-G6b">
-                                <rect key="frame" x="255" y="397" width="118" height="59"/>
+                                <rect key="frame" x="249" y="397" width="118" height="59"/>
                                 <state key="normal" image="tk_lanrentuku_0000s_0012_look">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>

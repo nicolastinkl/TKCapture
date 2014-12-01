@@ -73,7 +73,7 @@ static const void *SwitchSessionNameKey = &SwitchSessionNameKey;
 
 @implementation TKTakePhotoViewController
 
-//objection_initializer(<#selectorSymbol#>, <#args...#>)
+//objection_initializer(selectorSymbol, args...)
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

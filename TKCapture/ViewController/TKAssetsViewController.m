@@ -81,6 +81,7 @@ static UIColor *titleColor;
 
 #pragma mark -------------------------------------- main view----------------
 
+//相册查看容器
 @interface TKAssetsViewController ()
 
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
@@ -104,6 +105,7 @@ static UIColor *titleColor;
     self.layout.itemSize                = kThumbnailSize;
     self.layout.footerReferenceSize     = CGSizeMake(0, 44.0);
     
+    // 相册间隔
     if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
     {
         self.layout.sectionInset            = UIEdgeInsetsMake(9.0, 2.0, 0, 2.0);
@@ -117,6 +119,7 @@ static UIColor *titleColor;
         self.layout.minimumLineSpacing      = 2.0;
     }
     
+    //自动布局
     if (self = [super initWithCollectionViewLayout:self.layout])
     {
         self.collectionView.allowsMultipleSelection = YES;
@@ -176,7 +179,7 @@ static UIColor *titleColor;
     [self.collectionView setCollectionViewLayout:self.layout animated:YES];
 }
 
-
+//照片数量和视频数量
 - (void)setupAssets
 {
     self.title = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
@@ -262,6 +265,7 @@ static UIColor *titleColor;
     
 }
 
+//放大图片
 -(void) showImage:(UIView *) viewCell withImage:(UIImage *) image
 {
     UIWindow *window=[UIApplication sharedApplication].keyWindow;

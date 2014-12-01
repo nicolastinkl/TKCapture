@@ -58,6 +58,7 @@
 
 
 #pragma mark -------------------------------------- man group --------------------
+//本地相册组，tableview选择
 @interface TKAlibumGroupViewController ()
 
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
@@ -176,7 +177,7 @@
 }
 
 
-#pragma mark - Not allowed / No assets
+#pragma mark - 不允许或者没有照片
 
 - (void)showNotAllowed
 {
