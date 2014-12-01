@@ -12,7 +12,6 @@
 #import <UIView+Additon.h>
 #import <objc/runtime.h>
 #import <Objection.h>
-#import "TKNavigationController.h"
 #import "TKTakePhotoViewController.h"
 #import "TKCaptureSessionManager.h"
 

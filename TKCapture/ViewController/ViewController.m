@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "TKNavigationController.h"
 #import "TKProtocol.h"
 #import <Objection.h>
 @interface ViewController ()
@@ -35,7 +34,12 @@
  */
 -(IBAction)TKTakePhotoAction:(id)sender
 {
-    [[[TKNavigationController alloc] init] showController:self];
+    
+    UIViewController * viewController = [[JSObjection defaultInjector] getObject:@protocol(TKCameraProtocol)];
+    UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self presentViewController:navigation animated:YES completion:^{
+        
+    }];
 }
 
 /*!
@@ -49,7 +53,9 @@
 {
     
     UINavigationController*  viewController = [[JSObjection defaultInjector] getObject:@protocol(TKAlbumProtocol)];
-    [self presentViewController:viewController animated:YES completion:NULL];
+    [self presentViewController:viewController animated:YES completion:^{
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

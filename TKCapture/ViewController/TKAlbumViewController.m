@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "TKAlbumViewController.h"
-#import "NSDate+TimeInterval.h"
 #import <TKUtilsMacro.h>
 #import "TKProtocol.h"
 #import <Objection.h>

@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "TKAssetsViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "NSDate+TimeInterval.h"
 #import <TKUtilsMacro.h>
 #import "TKAssetsSupplementaryView.h"
 #import "TKAlbumViewController.h"
@@ -30,12 +29,10 @@ static CGRect oldframe;
 @property (nonatomic, strong) ALAsset *asset;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, copy) NSString *type;
-@property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) UIImage *videoImage;
 @property (nonatomic, assign) BOOL disabled;
 
 @end
-
 
 
 #pragma mark - TKAssetsViewCell
@@ -70,11 +67,6 @@ static UIColor *titleColor;
     self.asset  = asset;
     self.image  = [UIImage imageWithCGImage:asset.thumbnail];
     self.type   = [asset valueForProperty:ALAssetPropertyType];
-    
-    if ([self.type isEqual:ALAssetTypeVideo])
-    {
-        self.title = [NSDate timeDescriptionOfTimeInterval:[[asset valueForProperty:ALAssetPropertyDuration] doubleValue]];
-    }
 }
 
 - (void)drawRect:(CGRect)rect

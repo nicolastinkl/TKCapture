@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TKCapture/ViewController/TKTakePhotoViewController.m"
-            timestampString = "439022055.270939"
+            timestampString = "439097885.658431"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "496"
-            endingLineNumber = "496"
+            startingLineNumber = "495"
+            endingLineNumber = "495"
             landmarkName = "-switchCaptureSession:"
             landmarkType = "5">
          </BreakpointContent>
