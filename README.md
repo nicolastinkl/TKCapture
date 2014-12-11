@@ -13,4 +13,3 @@ TKCapture
 `pod install` or `pod update`
 
 ## 3. just run xcode
- `bingo`
