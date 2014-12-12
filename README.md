@@ -13,3 +13,5 @@ TKCapture
 `pod install` or `pod update`
 
 ## 3. just run xcode
+
+## 4. test 
