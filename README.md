@@ -14,4 +14,4 @@ TKCapture
 
 ## 3. just run xcode
 
-## 4. test c
+## 4. test
