@@ -1,6 +1,7 @@
 TKCapture
 =========
 
+![](http://tinkl.qiniudn.com/tinklUpload_weheartswfit.jpg)
 ## 1. how to use it?
 > add private podspec to you local enveriment
 
